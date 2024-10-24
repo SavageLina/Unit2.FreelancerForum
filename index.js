@@ -24,8 +24,9 @@ function render() {
     return freelancerElement;
   });
   freelancerList.replaceChildren(...freelancerElements);
+  updateAveragePrice();
 }
-render();
+
 
 const addFreelancer = () => {
   const newFreelancer = {
@@ -37,18 +38,22 @@ const addFreelancer = () => {
   render();
 };
 
-render();
-
 setInterval(addFreelancer, 5000);
 
 const calculateAveragePrice = () => {
   if (freelancers.length === 0) return 0;
   const totalPrice = freelancers.reduce((acc, freelancer) => acc + freelancer.price, 0); 
-  const averagePrice = totalPrice / freelancers.length;
-  return averagePrice;
+  return averagePrice = totalPrice / freelancers.length;
 };
-const averageStartingPrice = calculateAveragePrice();
-console.log(`Average Starting Price: $${averageStartingPrice.toFixed(2)}`);
+const updateAveragePrice = () => {
+  const averagePrice = calculateAveragePrice();
+  const averageDiv = document.getElementById("average-price");
+  averageDiv.innerText = `Average Starting Price: $${averagePrice.toFixed(2)}`;
+};
+
+render();
+
+
 // Explanation:
 // Checking for Empty Array: The function first checks if the freelancers array is empty. If it is, it returns 0 to avoid division by zero.
 // Using reduce: The reduce method sums up the prices of all freelancers. It starts with an initial value of 0 (the second argument to reduce).
